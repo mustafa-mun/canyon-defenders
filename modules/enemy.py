@@ -13,7 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         )
         self._waypoints = waypoints
         self._target_waypoint = 0
-        self._speed = 12
+        self._speed = 5
 
     def draw_health_bar(self, surf, pos, size, borderC, backC, healthC, progress):
         pygame.draw.rect(surf, backC, (*pos, *size))
@@ -44,6 +44,7 @@ class Enemy(pygame.sprite.Sprite):
             )
 
     def update(self):
+        # If health is 0 or less, kill enemy
         if self.health <= 0:
             self.kill()
 
@@ -70,7 +71,6 @@ class Enemy(pygame.sprite.Sprite):
         ):
             # increment the target waypoint
             self._target_waypoint += 1
-            self.health -= 30
             # check if enemy has reached the end of waypoints list
             if self._target_waypoint >= len(self._waypoints):
                 self.kill()
