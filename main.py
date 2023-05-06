@@ -12,7 +12,7 @@ screen = win._screen
 pygame.display.set_caption("Canyon Defenders")
 
 # create background
-BackGround = Background("./assets/map.png", [0, 0])
+background = Background("./assets/map.png", [0, 0])
 
 # Create a custom event for adding a new enemy every second
 ADDENEMY = pygame.USEREVENT + 1
@@ -28,12 +28,12 @@ while running:
             running = False
         # handle enemy spawn
         elif event.type == ADDENEMY:
-            new_enemy = Enemy(100, BackGround._waypoints)
+            new_enemy = Enemy(100, background._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
 
     # add background
-    screen.blit(BackGround._image, BackGround._rect)
+    screen.blit(background._image, background._rect)
 
     # draw all sprites
     for entity in win.all_sprites:
