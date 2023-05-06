@@ -9,6 +9,8 @@ pygame.init()
 win = Window(1286, 768)
 screen = win._screen
 
+pygame.display.set_caption("Canyon Defenders")
+
 # create background
 BackGround = Background("./assets/map.png", [0, 0])
 
@@ -43,8 +45,6 @@ while running:
     for enemy in win.enemies:
         enemy.draw_health(screen, win)
 
-    # make healthbars follow enemy
-    win.health_bars.update()
     # Flip the display
     pygame.display.flip()
 
