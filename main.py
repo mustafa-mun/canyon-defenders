@@ -26,7 +26,7 @@ while running:
             running = False
         # handle enemy spawn
         elif event.type == ADDENEMY:
-            new_enemy = Enemy(BackGround._waypoints)
+            new_enemy = Enemy(100, BackGround._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
 
@@ -40,6 +40,11 @@ while running:
     # make enemies move
     win.enemies.update()
 
+    for enemy in win.enemies:
+        enemy.draw_health(screen, win)
+
+    # make healthbars follow enemy
+    win.health_bars.update()
     # Flip the display
     pygame.display.flip()
 
