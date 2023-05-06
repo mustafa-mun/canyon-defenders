@@ -1,2 +1,2 @@
-# tower-defense
+# Canyon Defenders
 Tower defense game with Pygame
