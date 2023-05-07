@@ -1,6 +1,5 @@
 import pygame
 
-
 class Window:
     def __init__(self, width, height):
         self._SCREEN_WIDTH = width
@@ -10,3 +9,4 @@ class Window:
         )
         self.all_sprites = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+        self.towers = pygame.sprite.Group()
