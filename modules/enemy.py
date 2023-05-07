@@ -43,7 +43,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.health / self.max_health,
             )
 
-    def update(self):
+    def update(self, player):
         # If health is 0 or less, kill enemy
         if self.health <= 0:
             self.kill()
@@ -73,4 +73,5 @@ class Enemy(pygame.sprite.Sprite):
             self._target_waypoint += 1
             # check if enemy has reached the end of waypoints list
             if self._target_waypoint >= len(self._waypoints):
+                player.health -=1
                 self.kill()
