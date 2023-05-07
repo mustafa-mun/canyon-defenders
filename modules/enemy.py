@@ -8,7 +8,7 @@ class Enemy(pygame.sprite.Sprite):
         self.health = health
         self._surf = pygame.Surface((25, 25))
         self._surf.fill((0, 0, 0))
-        self._rect = self._surf.get_rect(
+        self.rect = self._surf.get_rect(
             center=(int(waypoints[0]["x"]), int(waypoints[0]["y"]))
         )
         self._waypoints = waypoints
@@ -30,13 +30,13 @@ class Enemy(pygame.sprite.Sprite):
 
     def draw_health(self, surf, win):
         # Check if sprite is still within the screen boundaries
-        if self._rect.right < win._SCREEN_WIDTH - 3:
-            health_rect = pygame.Rect(0, 0, self._surf.get_width(), 7)
-            health_rect.midbottom = self._rect.centerx, self._rect.top
+        if self.rect.right < win._SCREEN_WIDTH - 3:
+            healthrect = pygame.Rect(0, 0, self._surf.get_width(), 7)
+            healthrect.midbottom = self.rect.centerx, self.rect.top
             self.draw_health_bar(
                 surf,
-                health_rect.topleft,
-                health_rect.size,
+                healthrect.topleft,
+                healthrect.size,
                 (0, 0, 0),
                 (255, 0, 0),
                 (0, 255, 0),
@@ -52,22 +52,22 @@ class Enemy(pygame.sprite.Sprite):
         pos = self._waypoints[self._target_waypoint]
 
         # handle right
-        if self._rect.x < pos["x"]:
-            self._rect.move_ip(self._speed, 0)
+        if self.rect.x < pos["x"]:
+            self.rect.move_ip(self._speed, 0)
         # handle left
-        if self._rect.x > pos["x"]:
-            self._rect.move_ip(-self._speed, 0)
+        if self.rect.x > pos["x"]:
+            self.rect.move_ip(-self._speed, 0)
         # handle bottom
-        if self._rect.y < pos["y"]:
-            self._rect.move_ip(0, self._speed)
+        if self.rect.y < pos["y"]:
+            self.rect.move_ip(0, self._speed)
         # handle top
-        if self._rect.y > pos["y"]:
-            self._rect.move_ip(0, -self._speed)
+        if self.rect.y > pos["y"]:
+            self.rect.move_ip(0, -self._speed)
 
         # check if enemy has reached the current waypoint
         if (
-            abs(self._rect.x - pos["x"]) <= self._speed
-            and abs(self._rect.y - pos["y"]) <= self._speed
+            abs(self.rect.x - pos["x"]) <= self._speed
+            and abs(self.rect.y - pos["y"]) <= self._speed
         ):
             # increment the target waypoint
             self._target_waypoint += 1
