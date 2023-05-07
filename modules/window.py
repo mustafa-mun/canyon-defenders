@@ -10,3 +10,4 @@ class Window:
         self.all_sprites = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         self.towers = pygame.sprite.Group()
+        self.projectiles = pygame.sprite.Group()
