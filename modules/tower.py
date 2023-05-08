@@ -29,8 +29,8 @@ class Projectile(pygame.sprite.Sprite):
     super(Projectile, self).__init__()
     self._tower = tower
     self._enemy = enemy
-    self._surf = pygame.Surface((10, 10))
-    self._surf.fill((0, 0, 0))
+    self._surf = pygame.image.load('assets/shoot.png').convert_alpha() # Load image file
+    self._surf = pygame.transform.scale(self._surf, (25, 25)) # Resize image to match original surface
     self.rect = self._surf.get_rect(
        center =(self._tower._pos_x, self._tower._pos_y)
     )
