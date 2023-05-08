@@ -12,7 +12,7 @@ class Enemy(pygame.sprite.Sprite):
         )
         self._waypoints = waypoints
         self._target_waypoint = 0
-        self._speed = 5
+        self._speed = 3.5
 
     def draw_health_bar(self, surf, pos, size, borderC, backC, healthC, progress):
         pygame.draw.rect(surf, backC, (*pos, *size))
