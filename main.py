@@ -25,14 +25,16 @@ coordinate_manager = CoordinateManager()
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 1000)
 
-# Create a custom event for shooting projectiles every second
-SHOOTPROJECTILE = pygame.USEREVENT + 2
-pygame.time.set_timer(SHOOTPROJECTILE, 1000)
+# set shoot timer for projectile shooting delay
+shoot_timer = 30
 
-   
+# handle framerate
+clock = pygame.time.Clock()
+
 # main game loop
 running = True
 while running:
+
     # get events
     for event in pygame.event.get():
         # handle quit
@@ -40,34 +42,28 @@ while running:
             running = False
         # handle enemy spawn
         elif event.type == ADDENEMY:
+            # create new enemy 
             new_enemy = Enemy(100, coordinate_manager._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
         # handle tower placing
         elif event.type == pygame.MOUSEBUTTONUP:
+            # get mouse position
             pos = pygame.mouse.get_pos()
+            # check if mouse coordinate is valid
             valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks)
             if valid_coordinate:
+                # coordinate is valid, create new tower 
                 x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                 y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                new_tower = Tower(250,valid_coordinate["width"], valid_coordinate["height"], x, y)
+                new_tower = Tower(250, 1, valid_coordinate["width"], valid_coordinate["height"], x, y)
                 win.all_sprites.add(new_tower)
                 win.towers.add(new_tower)
 
-        # handle projectile shooting
-        elif event.type == SHOOTPROJECTILE:
-            for tower in win.towers:
-                new_projectile = Projectile(tower)
-                win.all_sprites.add(new_projectile)
-                win.projectiles.add(new_projectile)
-        
-   
     # handle when player out of health
     if player.health <= 0:
         pass
-        #running = False
-    
-
+   
     # add background
     screen.blit(background._image, background._rect)
 
@@ -75,13 +71,31 @@ while running:
     for entity in win.all_sprites:
         screen.blit(entity._surf, entity.rect)
         
-    # draw towers range
+    # add projectiles to enemies in range
     for tower in win.towers:
-        tower.draw_range_box(screen)
-        for enemy in win.enemies:
-            if tower.range_box.colliderect(enemy.rect):
-                # handle shooting enemies
-                pass
+        # find the enemies in towers range
+        range_enemies = [enemy for enemy in win.enemies if tower.range_box.colliderect(enemy.rect)]
+        # set 0.5 seconds delay
+        if shoot_timer >= 30:
+            shoot_timer = 0
+            if range_enemies:
+                # shoot projectile to first locked out enemy
+                new_projectile = Projectile(tower, range_enemies[-1])
+                win.all_sprites.add(new_projectile)
+                win.projectiles.add(new_projectile)
+        else:
+            shoot_timer += 1
+    
+    # shoot all projectiles
+    for projectile in win.projectiles:
+        if projectile._enemy.rect.x > 0:
+            # projectile folllows the enemy
+            projectile.update()
+            if projectile.rect.colliderect(projectile._enemy.rect):
+                # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
+                projectile._enemy.health -= projectile._tower._damage
+                projectile.kill()
+
     # draw players health
     screen.blit(player.show_health(), (win._SCREEN_WIDTH - 75, 50))
 
@@ -89,11 +103,9 @@ while running:
     for enemy in win.enemies:
         enemy.draw_health(screen, win)
         enemy.update(player)
-
-    # make projectiles move
-    for projectile in win.projectiles:
-        projectile.update(win)
     
+   # set framerate to 60 
+    clock.tick(60)
     # Flip the display
     pygame.display.flip()
    
