@@ -1,7 +1,7 @@
 import pygame
 
 class Tower(pygame.sprite.Sprite):
-  def __init__(self, range, width, height, pos_x, pos_y):
+  def __init__(self, range, damage, width, height, pos_x, pos_y):
     super(Tower, self).__init__()
     self._pos_x = pos_x
     self._pos_y = pos_y
@@ -9,7 +9,8 @@ class Tower(pygame.sprite.Sprite):
     self._surf.fill((0, 0, 0))
     self.rect = self._surf.get_rect(
         center=(pos_x, pos_y)
-    )    
+    )
+    self._damage = damage    
     self.range_box = pygame.Rect(pos_x - (width // 2) - (range // 2),
                                      pos_y - (height // 2) - (range // 2),
                                      width + range,
@@ -24,9 +25,10 @@ class Tower(pygame.sprite.Sprite):
 
       
 class Projectile(pygame.sprite.Sprite):
-  def __init__(self,tower):
+  def __init__(self,tower, enemy):
     super(Projectile, self).__init__()
     self._tower = tower
+    self._enemy = enemy
     self._surf = pygame.Surface((10, 10))
     self._surf.fill((0, 0, 0))
     self.rect = self._surf.get_rect(
@@ -34,12 +36,22 @@ class Projectile(pygame.sprite.Sprite):
     )
     self._speed = 5
 
-  def update(self, screen):
-
-    self.rect.move_ip(self._speed,0)
-
-    if self.rect.x < 0 or self.rect.x > screen._SCREEN_WIDTH:
-      self.kill()
-
-    if self.rect.y < 0 or self.rect.y > screen._SCREEN_HEIGHT:
-      self.kill()  
+  def update(self):
+        # move only if enemy is in tower range
+        if self._enemy.rect.x <= self._tower.range_box.right:
+           # handle right
+          if self.rect.x < self._enemy.rect.x:
+              self.rect.move_ip(self._speed, 0)
+          # handle left
+          if self.rect.x > self._enemy.rect.x:
+              self.rect.move_ip(-self._speed, 0)
+          # handle bottom
+          if self.rect.y < self._enemy.rect.y:
+              self.rect.move_ip(0, self._speed)
+          # handle top
+          if self.rect.y > self._enemy.rect.y:
+              self.rect.move_ip(0, -self._speed)
+        else:
+           self.kill()
+        
+        
