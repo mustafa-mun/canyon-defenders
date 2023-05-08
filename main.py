@@ -96,12 +96,7 @@ while running:
     
     # Flip the display
     pygame.display.flip()
-
-    # Setup the clock for a decent framerate
-    clock = pygame.time.Clock()
-
-    # Wait for the next frame
-    clock.tick(60)
+   
 
 # Done! Time to quit.
 pygame.quit()
