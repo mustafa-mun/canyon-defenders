@@ -43,7 +43,7 @@ while running:
         # handle enemy spawn
         elif event.type == ADDENEMY:
             # create new enemy 
-            new_enemy = Enemy(100, coordinate_manager._waypoints)
+            new_enemy = Enemy(100, 2, coordinate_manager._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
         # handle tower placing
@@ -56,7 +56,7 @@ while running:
                 # coordinate is valid, create new tower 
                 x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                 y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                new_tower = Tower(250, 1, valid_coordinate["width"], valid_coordinate["height"], x, y)
+                new_tower = Tower(220, 1, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
                 win.all_sprites.add(new_tower)
                 win.towers.add(new_tower)
 
@@ -73,18 +73,19 @@ while running:
         
     # add projectiles to enemies in range
     for tower in win.towers:
+        tower.draw_range_box(screen)
         # find the enemies in towers range
         range_enemies = [enemy for enemy in win.enemies if tower.range_box.colliderect(enemy.rect)]
         # set 0.5 seconds delay
-        if shoot_timer >= 30:
-            shoot_timer = 0
+        if tower.shoot_timer >= 30:
+            tower.shoot_timer = 0
             if range_enemies:
                 # shoot projectile to first locked out enemy
                 new_projectile = Projectile(tower, range_enemies[-1])
                 win.all_sprites.add(new_projectile)
                 win.projectiles.add(new_projectile)
         else:
-            shoot_timer += 1
+            tower.shoot_timer += 1
     
     # shoot all projectiles
     for projectile in win.projectiles:

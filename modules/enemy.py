@@ -1,7 +1,7 @@
 import pygame
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, health, waypoints):
+    def __init__(self, health, speed, waypoints):
         super(Enemy, self).__init__()
         self.max_health = health
         self.health = health
@@ -12,7 +12,7 @@ class Enemy(pygame.sprite.Sprite):
         )
         self._waypoints = waypoints
         self._target_waypoint = 0
-        self._speed = 3
+        self._speed = speed
 
     def draw_health_bar(self, surf, pos, size, borderC, backC, healthC, progress):
         pygame.draw.rect(surf, backC, (*pos, *size))
