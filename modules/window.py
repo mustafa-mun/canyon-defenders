@@ -22,7 +22,7 @@ class Window:
         ]
         tower_costs = [250, 500, 1000, 2500]
         font = pygame.font.Font('freesansbold.ttf', 21)
-        clicked = False
+
         for i in range(len(tower_images)):
             image = pygame.image.load(tower_images[i]).convert_alpha()
             scaled = pygame.transform.scale(image, (100, 100))
@@ -33,22 +33,13 @@ class Window:
             cost_text_y = 125
             screen.blit(scaled, (scaled_x, scaled_y))
             screen.blit(cost_text, (cost_text_x, cost_text_y))
-              # check for click event on the tower image
+            # make sure to send coordinates maximum tower images length
             if len(self.buy_tower_coords) <= len(tower_images):
+                # send image coordinates to buy tower coordinates
                 dict = {}
                 dict["tower"] = scaled
                 dict["tower_price"] = tower_costs[i]
                 self.buy_tower_coords.append(dict)
-            # mouse_pos = pygame.mouse.get_pos()
-
-
-            # # Inside the game loop
-            # if scaled_x < mouse_pos[0] < scaled_x + scaled.get_width() and scaled_y < mouse_pos[1] < scaled_y + scaled.get_height():
-            #     if pygame.mouse.get_pressed()[0] and not clicked:
-            #         clicked = True
-            #         print("clicked")
-            #     elif not pygame.mouse.get_pressed()[0] and clicked:
-            #         clicked = False
    
 
 class Background(pygame.sprite.Sprite):
@@ -185,22 +176,25 @@ class CoordinateManager:
                 }]
         
     # check if tile coordinate in a placement tile range
-    def is_coordinate_valid_placement_point(self, x, y, coordinates):
-        for block in coordinates:
-            # get maximum coordinates
-            max_x = block["x"] + block["width"]
-            max_y = block["y"] + block["height"]
-            # check if coordinates are in range
-            if x >= block["x"] and x <= max_x and y >= block["y"] and y <= max_y:
-                # coordinates are in range
-                if block["is_placed"]:
-                    # there is already a tower placed
-                    print("already placed")
-                    return False
-                else:
-                 block["is_placed"] = True
-                 return block
-        # coordinates are out of range
-        print("out of range")
-        return False
+    def is_coordinate_valid_placement_point(self, x, y, coordinates, is_clicked_on_tower_buy):
+        if not is_clicked_on_tower_buy:
+
+            for block in coordinates:
+                # get maximum coordinates
+                max_x = block["x"] + block["width"]
+                max_y = block["y"] + block["height"]
+                # check if coordinates are in range
+                if x >= block["x"] and x <= max_x and y >= block["y"] and y <= max_y:
+                    # coordinates are in range
+                    if block["is_placed"]:
+                        # there is already a tower placed
+                        print("already placed")
+                        return False
+                    else:
+                        block["is_placed"] = True
+                        return block
+            # coordinates are out of range
+            print("out of range")
+            return False
+        print("you clicked on a tower buy section")
 
