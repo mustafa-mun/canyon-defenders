@@ -56,7 +56,7 @@ while running:
                 # coordinate is valid, create new tower 
                 x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                 y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                new_tower = Tower(220, 1, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
+                new_tower = Tower(220, 7, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
                 win.all_sprites.add(new_tower)
                 win.towers.add(new_tower)
 
