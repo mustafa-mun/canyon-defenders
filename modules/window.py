@@ -23,73 +23,100 @@ class Background(pygame.sprite.Sprite):
 class CoordinateManager:
     def __init__(self):
         self._waypoints = [
-            {"x": -93.3333333333333, "y": 285.333333333333},
-            {"x": 664, "y": 289.333333333333},
-            {"x": 669.333333333333, "y": 528},
-            {"x": 1360, "y": 534.666666666667},
-        ]
+                        {
+                         "x":-126.666666666667,
+                         "y":418.666666666667
+                        }, 
+                        {
+                         "x":220,
+                         "y":412
+                        }, 
+                        {
+                         "x":224,
+                         "y":225.333333333333
+                        }, 
+                        {
+                         "x":538.666666666667,
+                         "y":225.333333333333
+                        }, 
+                        {
+                         "x":541.333333333333,
+                         "y":602.666666666667
+                        }, 
+                        {
+                         "x":1054.66666666667,
+                         "y":604
+                        }, 
+                        {
+                         "x":1056,
+                         "y":418.666666666667
+                        }, 
+                        {
+                         "x":1321.33333333333,
+                         "y":410.666666666667
+                        }]
         self._placement_blocks = [
                 {
-                 "height":125,
-                 "width":122,
-                 "x":68,
-                 "y":63,
-                 "is_placed": False
-                }, 
-                {
-                 "height":125,
-                 "width":125,
-                 "x":322,
-                 "y":65,
-                 "is_placed": False
-                }, 
-                {
-                 "height":123,
+                 "height":63,
                  "width":128,
-                 "x":66,
-                 "y":386,
-                 "is_placed": False
-                }, 
-                {
-                 "height":124,
-                 "width":126,
                  "x":321,
-                 "y":385,
+                 "y":321,
                  "is_placed": False
                 }, 
                 {
-                 "height":122,
-                 "width":124,
-                 "x":1027,
-                 "y":323,
+                 "height":63,
+                 "width":128,
+                 "x":320,
+                 "y":449,
                  "is_placed": False
                 }, 
                 {
-                 "height":124,
-                 "width":124,
-                 "x":578,
-                 "y":643,
+                 "height":64,
+                 "width":129,
+                 "x":320,
+                 "y":577,
                  "is_placed": False
                 }, 
                 {
-                 "height":122,
-                 "width":123,
-                 "x":836,
-                 "y":643,
+                 "height":61,
+                 "width":125,
+                 "x":642,
+                 "y":258,
                  "is_placed": False
                 }, 
                 {
-                 "height":126,
-                 "width":123,
-                 "x":1093,
-                 "y":642,
-                 "is_placed": False
-                }, 
-                {
-                 "height":128,
+                 "height":63,
                  "width":127,
-                 "x":769,
-                 "y":320,
+                 "x":641,
+                 "y":449,
+                 "is_placed": False
+                }, 
+                {
+                 "height":64,
+                 "width":127,
+                 "x":833,
+                 "y":447,
+                 "is_placed": False
+                }, 
+                {
+                 "height":63,
+                 "width":124,
+                 "x":1025,
+                 "y":256,
+                 "is_placed": False
+                }, 
+                {
+                 "height":64,
+                 "width":126,
+                 "x":1153,
+                 "y":512,
+                 "is_placed": False
+                }, 
+                {
+                 "height":64,
+                 "width":128,
+                 "x":449,
+                 "y":64,
                  "is_placed": False
                 }]
         
@@ -104,10 +131,12 @@ class CoordinateManager:
                 # coordinates are in range
                 if block["is_placed"]:
                     # there is already a tower placed
+                    print("already placed")
                     return False
                 else:
                  block["is_placed"] = True
                  return block
         # coordinates are out of range
+        print("out of range")
         return False
 
