@@ -91,8 +91,8 @@ while running:
         tower.draw_range_box(screen)
         # find the enemies in towers range
         range_enemies = [enemy for enemy in win.enemies if tower.range_box.colliderect(enemy.rect)]
-        # set 0.5 seconds delay
-        if tower.shoot_timer >= 30:
+        # set towers shooting rate delay
+        if tower.shoot_timer >= tower._shooting_rate:
             tower.shoot_timer = 0
             if range_enemies:
                 # shoot projectile to first locked out enemy
