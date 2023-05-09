@@ -43,20 +43,31 @@ while running:
         # handle enemy spawn
         elif event.type == ADDENEMY:
             # create new enemy 
-            new_enemy = Enemy(100, 2, coordinate_manager._waypoints)
+            new_enemy = Enemy(100, 2, 50, coordinate_manager._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
         # handle tower placing
         elif event.type == pygame.MOUSEBUTTONUP:
             # get mouse position
             pos = pygame.mouse.get_pos()
+
+            for i in range(len(win.buy_tower_coords)):
+                # get towers x, y position
+                x = win._SCREEN_WIDTH//2 - win.buy_tower_coords[i]["tower"].get_width()//2 + (i-1.5)*1.5*win.buy_tower_coords[i]["tower"].get_width()
+                y = 15
+                # check if user clicked a tower buy image
+                if x < pos[0] < x + win.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + win.buy_tower_coords[i]["tower"].get_height():
+                    # handle tower buying
+                    print(win.buy_tower_coords[i]["tower_price"])
+
+
             # check if mouse coordinate is valid
             valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks)
             if valid_coordinate:
                 # coordinate is valid, create new tower 
                 x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                 y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                new_tower = Tower(220, 7, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
+                new_tower = Tower(220, 15, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
                 win.all_sprites.add(new_tower)
                 win.towers.add(new_tower)
 
@@ -64,6 +75,7 @@ while running:
     if player.health <= 0:
         pass
    
+
     # add background
     screen.blit(background._image, background._rect)
 
@@ -98,8 +110,11 @@ while running:
                 projectile.kill()
 
     # draw players health
-    screen.blit(player.show_health(), (win._SCREEN_WIDTH - 75, 50))
-
+    screen.blit(player.show_health(), (25, 25))
+    # draw players money
+    screen.blit(player.show_money(), (25, 75))
+    # draw towers to buy
+    win.show_tower_buy(screen)
     # make enemies move and draw their health
     for enemy in win.enemies:
         enemy.draw_health(screen, win)

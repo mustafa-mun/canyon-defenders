@@ -11,6 +11,45 @@ class Window:
         self.enemies = pygame.sprite.Group()
         self.towers = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
+        self.buy_tower_coords = []
+
+    def show_tower_buy(self, screen):
+        tower_images = [
+            "assets/towers/tower-1.png",
+            "assets/towers/tower-2.png",
+            "assets/towers/tower-3.png",
+            "assets/towers/tower-4.png"
+        ]
+        tower_costs = [250, 500, 1000, 2500]
+        font = pygame.font.Font('freesansbold.ttf', 21)
+        clicked = False
+        for i in range(len(tower_images)):
+            image = pygame.image.load(tower_images[i]).convert_alpha()
+            scaled = pygame.transform.scale(image, (100, 100))
+            cost_text = font.render(f'${tower_costs[i]}', True, (255, 255, 255))
+            scaled_x = self._SCREEN_WIDTH//2 - scaled.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
+            scaled_y = 15
+            cost_text_x = self._SCREEN_WIDTH//2 - cost_text.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
+            cost_text_y = 125
+            screen.blit(scaled, (scaled_x, scaled_y))
+            screen.blit(cost_text, (cost_text_x, cost_text_y))
+              # check for click event on the tower image
+            if len(self.buy_tower_coords) <= len(tower_images):
+                dict = {}
+                dict["tower"] = scaled
+                dict["tower_price"] = tower_costs[i]
+                self.buy_tower_coords.append(dict)
+            # mouse_pos = pygame.mouse.get_pos()
+
+
+            # # Inside the game loop
+            # if scaled_x < mouse_pos[0] < scaled_x + scaled.get_width() and scaled_y < mouse_pos[1] < scaled_y + scaled.get_height():
+            #     if pygame.mouse.get_pressed()[0] and not clicked:
+            #         clicked = True
+            #         print("clicked")
+            #     elif not pygame.mouse.get_pressed()[0] and clicked:
+            #         clicked = False
+   
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
@@ -57,67 +96,92 @@ class CoordinateManager:
                         }]
         self._placement_blocks = [
                 {
-                 "height":63,
-                 "width":128,
-                 "x":321,
-                 "y":321,
-                 "is_placed": False
-                }, 
-                {
-                 "height":63,
+                 "height":64,
+                 "id":40,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
                  "width":128,
                  "x":320,
-                 "y":449,
-                 "is_placed": False
-                }, 
-                {
-                 "height":64,
-                 "width":129,
-                 "x":320,
-                 "y":577,
-                 "is_placed": False
-                }, 
-                {
-                 "height":61,
-                 "width":125,
-                 "x":642,
-                 "y":258,
-                 "is_placed": False
+                 "y":320
                 }, 
                 {
                  "height":63,
+                 "id":41,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
                  "width":127,
-                 "x":641,
-                 "y":449,
-                 "is_placed": False
-                }, 
-                {
-                 "height":64,
-                 "width":127,
-                 "x":833,
-                 "y":447,
-                 "is_placed": False
+                 "x":322,
+                 "y":449
                 }, 
                 {
                  "height":63,
-                 "width":124,
-                 "x":1025,
-                 "y":256,
-                 "is_placed": False
-                }, 
-                {
-                 "height":64,
+                 "id":42,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
                  "width":126,
-                 "x":1153,
-                 "y":512,
-                 "is_placed": False
+                 "x":320,
+                 "y":577
+                }, 
+                {
+                 "height":63,
+                 "id":43,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
+                 "width":126,
+                 "x":642,
+                 "y":447
+                }, 
+                {
+                 "height":65,
+                 "id":44,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
+                 "width":129,
+                 "x":640,
+                 "y":256
                 }, 
                 {
                  "height":64,
-                 "width":128,
-                 "x":449,
-                 "y":64,
-                 "is_placed": False
+                 "id":45,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
+                 "width":127,
+                 "x":1025,
+                 "y":255
+                }, 
+                {
+                 "height":62,
+                 "id":46,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
+                 "width":125,
+                 "x":1154,
+                 "y":514
+                }, 
+                {
+                 "height":63,
+                 "id":47,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "is_placed":False,
+                 "width":129,
+                 "x":832,
+                 "y":448
                 }]
         
     # check if tile coordinate in a placement tile range
