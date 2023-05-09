@@ -1,7 +1,7 @@
 import pygame
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, health, speed, waypoints):
+    def __init__(self, health, speed, reward, waypoints):
         super(Enemy, self).__init__()
         self.max_health = health
         self.health = health
@@ -10,6 +10,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self._surf.get_rect(
             center=(int(waypoints[0]["x"]), int(waypoints[0]["y"]))
         )
+        self._reward = reward
         self._waypoints = waypoints
         self._target_waypoint = 0
         self._speed = speed
@@ -45,6 +46,8 @@ class Enemy(pygame.sprite.Sprite):
     def update(self, player):
         # If health is 0 or less, kill enemy
         if self.health <= 0:
+            # Increase players money
+            player.money += self._reward
             self.kill()
 
         # Get the current target waypoint
