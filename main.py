@@ -25,9 +25,6 @@ coordinate_manager = CoordinateManager()
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 1000)
 
-# set shoot timer for projectile shooting delay
-shoot_timer = 30
-
 # handle framerate
 clock = pygame.time.Clock()
 
