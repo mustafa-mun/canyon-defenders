@@ -5,7 +5,7 @@ class Tower(pygame.sprite.Sprite):
     super(Tower, self).__init__()
     self._pos_x = pos_x
     self._pos_y = pos_y
-    self._surf = pygame.image.load('assets/tower-1.png').convert_alpha() # Load image file
+    self._surf = pygame.image.load('assets/towers/tower-1.png').convert_alpha() # Load image file
     self._surf = pygame.transform.scale(self._surf, (width, height * 2)) # Resize image to match original surface
     self.rect = self._surf.get_rect(
         center=(pos_x, pos_y - (height // 2))
@@ -20,8 +20,19 @@ class Tower(pygame.sprite.Sprite):
                                      height + range)
 
   def draw_range_box(self, screen):
-    # this method will be removed after tests
-    pygame.draw.rect(screen, (255, 255, 255), self.range_box, 1)
+      # detect mouse hover over tower
+      mouse_pos = pygame.mouse.get_pos()
+      if self.rect.collidepoint(mouse_pos):
+          # set flag to draw range box
+          draw_range = True
+      else:
+          # clear flag to not draw range box
+          draw_range = False
+
+      # draw range box if flag is set
+      if draw_range:
+          pygame.draw.rect(screen, (255, 255, 255), self.range_box, 1)
+
 
 
 
