@@ -4,7 +4,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
       super(Player, self).__init__()
       self.health = 10
-      self.money = 0
+      # default money
+      self.money = 250
 
     def show_health(self):
        font = pygame.font.Font('freesansbold.ttf', 35)
