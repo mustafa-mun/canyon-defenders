@@ -53,32 +53,46 @@ while running:
                 y = 15
                 # check if user clicked a tower buy image
                 if x < pos[0] < x + coordinate_manager.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + coordinate_manager.buy_tower_coords[i]["tower"].get_height():
+            
+                    win.mouse_pressed = True
                     print(f"Tower price => {coordinate_manager.buy_tower_coords[i]['tower_price']}")
-                    win.purchased_tower = coordinate_manager.buy_tower_coords[i]
-        
+                    win.purchased_tower = coordinate_manager.determine_tower(coordinate_manager.buy_tower_coords[i]['tower_price'], coordinate_manager.buy_tower_coords[i]["tower"])
+
         # handle drop 
         elif event.type == pygame.MOUSEBUTTONUP:
+            win.mouse_pressed = False
             # get mouse position
             pos = pygame.mouse.get_pos()
 
-            # purchased tower
-            print(win.purchased_tower)
-
-            for i in range(len(coordinate_manager.buy_tower_coords)):
-                # handle drop 
-                pass
-            
             # check if mouse coordinate is valid
             valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks)
             if valid_coordinate:
-                # set tower properties by buyed tower
-                # coordinate is valid, create new tower 
-                x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
-                y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                # create new tower with purchased tower 
-                new_tower = Tower(220, 15, "assets/towers/tower-1.png",  5,45, valid_coordinate["width"], valid_coordinate["height"], x, y)
-                win.all_sprites.add(new_tower)
-                win.towers.add(new_tower)
+                # if player purchased a tower
+                if win.purchased_tower:
+                    # if player has enough money
+                    if player.money >= win.purchased_tower["price"]:
+                        player.money -= win.purchased_tower["price"]
+                        # player have money
+                        # coordinate is valid, create new tower 
+                        x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
+                        y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
+                        # create new tower with purchased tower 
+                        new_tower = Tower(win.purchased_tower["range"], win.purchased_tower["damage"], win.purchased_tower["img"], win.purchased_tower["shooting_speed"], win.purchased_tower["shooting_rate"], valid_coordinate["width"], valid_coordinate["height"], x, y)
+                        win.all_sprites.add(new_tower)
+                        win.towers.add(new_tower)
+                    else:
+                        print("you don't have enough money")
+
+    # handle dragging purchased tower 
+    if win.mouse_pressed:
+        # get mouse position
+        pos = pygame.mouse.get_pos()
+        # calculate the position of the top-left corner of the tower image
+        x = pos[0] - win.purchased_tower["surface"].get_width() // 2
+        y = pos[1] - win.purchased_tower["surface"].get_height() // 2
+        # blit the tower image to the screen at the new position
+        screen.blit(win.purchased_tower["surface"], (x, y))
+        pygame.display.update()
 
     # handle when player out of health
     if player.health <= 0:
@@ -102,7 +116,7 @@ while running:
             tower.shoot_timer = 0
             if range_enemies:
                 # shoot projectile to first locked out enemy
-                new_projectile = Projectile(tower, range_enemies[-1])
+                new_projectile = Projectile(tower, range_enemies[0])
                 win.all_sprites.add(new_projectile)
                 win.projectiles.add(new_projectile)
         else:
