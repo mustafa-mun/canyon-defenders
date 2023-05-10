@@ -11,37 +11,8 @@ class Window:
         self.enemies = pygame.sprite.Group()
         self.towers = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
-        self.buy_tower_coords = []
         self.purchased_tower = None
 
-    def show_tower_buy(self, screen):
-        tower_images = [
-            "assets/towers/tower-1.png",
-            "assets/towers/tower-2.png",
-            "assets/towers/tower-3.png",
-            "assets/towers/tower-4.png"
-        ]
-        tower_costs = [250, 500, 1000, 2500]
-        font = pygame.font.Font('freesansbold.ttf', 21)
-
-        for i in range(len(tower_images)):
-            image = pygame.image.load(tower_images[i]).convert_alpha()
-            scaled = pygame.transform.scale(image, (100, 100))
-            cost_text = font.render(f'${tower_costs[i]}', True, (255, 255, 255))
-            scaled_x = self._SCREEN_WIDTH//2 - scaled.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
-            scaled_y = 15
-            cost_text_x = self._SCREEN_WIDTH//2 - cost_text.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
-            cost_text_y = 125
-            screen.blit(scaled, (scaled_x, scaled_y))
-            screen.blit(cost_text, (cost_text_x, cost_text_y))
-            # make sure to send coordinates maximum tower images length
-            if len(self.buy_tower_coords) <= len(tower_images):
-                # send image coordinates to buy tower coordinates
-                dict = {}
-                dict["tower"] = scaled
-                dict["tower_price"] = tower_costs[i]
-                self.buy_tower_coords.append(dict)
-   
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
@@ -53,6 +24,7 @@ class Background(pygame.sprite.Sprite):
 
 class CoordinateManager:
     def __init__(self):
+        self.buy_tower_coords = []
         self._waypoints = [
                         {
                          "x":-126.666666666667,
@@ -196,5 +168,34 @@ class CoordinateManager:
         # coordinates are out of range
         print("out of range")
         return False
+    
+    def show_tower_buy(self, screen, win):
+        tower_images = [
+            "assets/towers/tower-1.png",
+            "assets/towers/tower-2.png",
+            "assets/towers/tower-3.png",
+            "assets/towers/tower-4.png"
+        ]
+        tower_costs = [250, 500, 1000, 2500]
+        font = pygame.font.Font('freesansbold.ttf', 21)
+
+        for i in range(len(tower_images)):
+            image = pygame.image.load(tower_images[i]).convert_alpha()
+            scaled = pygame.transform.scale(image, (100, 100))
+            cost_text = font.render(f'${tower_costs[i]}', True, (255, 255, 255))
+            scaled_x = win._SCREEN_WIDTH//2 - scaled.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
+            scaled_y = 15
+            cost_text_x = win._SCREEN_WIDTH//2 - cost_text.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
+            cost_text_y = 125
+            screen.blit(scaled, (scaled_x, scaled_y))
+            screen.blit(cost_text, (cost_text_x, cost_text_y))
+            # make sure to send coordinates maximum tower images length
+            if len(self.buy_tower_coords) <= len(tower_images):
+                # send image coordinates to buy tower coordinates
+                dict = {}
+                dict["tower"] = scaled
+                dict["tower_price"] = tower_costs[i]
+                self.buy_tower_coords.append(dict)
+   
 
 

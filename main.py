@@ -48,13 +48,13 @@ while running:
             # get mouse position
             pos = pygame.mouse.get_pos()
 
-            for i in range(len(win.buy_tower_coords)):
-                x = win._SCREEN_WIDTH//2 - win.buy_tower_coords[i]["tower"].get_width()//2 + (i-1.5)*1.5*win.buy_tower_coords[i]["tower"].get_width()
+            for i in range(len(coordinate_manager.buy_tower_coords)):
+                x = win._SCREEN_WIDTH//2 - coordinate_manager.buy_tower_coords[i]["tower"].get_width()//2 + (i-1.5)*1.5*coordinate_manager.buy_tower_coords[i]["tower"].get_width()
                 y = 15
                 # check if user clicked a tower buy image
-                if x < pos[0] < x + win.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + win.buy_tower_coords[i]["tower"].get_height():
-                    print(f"Tower price => {win.buy_tower_coords[i]['tower_price']}")
-                    win.purchased_tower = win.buy_tower_coords[i]
+                if x < pos[0] < x + coordinate_manager.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + coordinate_manager.buy_tower_coords[i]["tower"].get_height():
+                    print(f"Tower price => {coordinate_manager.buy_tower_coords[i]['tower_price']}")
+                    win.purchased_tower = coordinate_manager.buy_tower_coords[i]
         
         # handle drop 
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -64,7 +64,7 @@ while running:
             # purchased tower
             print(win.purchased_tower)
 
-            for i in range(len(win.buy_tower_coords)):
+            for i in range(len(coordinate_manager.buy_tower_coords)):
                 # handle drop 
                 pass
             
@@ -123,7 +123,7 @@ while running:
     # draw players money
     screen.blit(player.show_money(), (25, 75))
     # draw towers to buy
-    win.show_tower_buy(screen)
+    coordinate_manager.show_tower_buy(screen, win)
     # make enemies move and draw their health
     for enemy in win.enemies:
         enemy.draw_health(screen, win)
