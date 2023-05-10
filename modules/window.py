@@ -11,6 +11,7 @@ class Window:
         self.enemies = pygame.sprite.Group()
         self.towers = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
+        self.mouse_pressed = False
         self.purchased_tower = None
 
 
@@ -25,6 +26,13 @@ class Background(pygame.sprite.Sprite):
 class CoordinateManager:
     def __init__(self):
         self.buy_tower_coords = []
+        self.tower_images = [
+            "assets/towers/tower-1.png",
+            "assets/towers/tower-2.png",
+            "assets/towers/tower-3.png",
+            "assets/towers/tower-4.png"
+        ]
+        self.tower_costs = [250, 500, 1000, 2500]
         self._waypoints = [
                         {
                          "x":-126.666666666667,
@@ -170,19 +178,12 @@ class CoordinateManager:
         return False
     
     def show_tower_buy(self, screen, win):
-        tower_images = [
-            "assets/towers/tower-1.png",
-            "assets/towers/tower-2.png",
-            "assets/towers/tower-3.png",
-            "assets/towers/tower-4.png"
-        ]
-        tower_costs = [250, 500, 1000, 2500]
         font = pygame.font.Font('freesansbold.ttf', 21)
 
-        for i in range(len(tower_images)):
-            image = pygame.image.load(tower_images[i]).convert_alpha()
+        for i in range(len(self.tower_images)):
+            image = pygame.image.load(self.tower_images[i]).convert_alpha()
             scaled = pygame.transform.scale(image, (100, 100))
-            cost_text = font.render(f'${tower_costs[i]}', True, (255, 255, 255))
+            cost_text = font.render(f'${self.tower_costs[i]}', True, (255, 255, 255))
             scaled_x = win._SCREEN_WIDTH//2 - scaled.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
             scaled_y = 15
             cost_text_x = win._SCREEN_WIDTH//2 - cost_text.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
@@ -190,12 +191,54 @@ class CoordinateManager:
             screen.blit(scaled, (scaled_x, scaled_y))
             screen.blit(cost_text, (cost_text_x, cost_text_y))
             # make sure to send coordinates maximum tower images length
-            if len(self.buy_tower_coords) <= len(tower_images):
+            if len(self.buy_tower_coords) <= len(self.tower_images):
                 # send image coordinates to buy tower coordinates
                 dict = {}
                 dict["tower"] = scaled
-                dict["tower_price"] = tower_costs[i]
+                dict["tower_price"] = self.tower_costs[i]
                 self.buy_tower_coords.append(dict)
+
+
+    def determine_tower(self, price, surface):
+        tower = {
+            "price": price,
+            "surface": surface,
+            "img": None,
+            "range": None,
+            "damage": None,
+            "shooting_speed": None,
+            "shooting_rate": None
+        }
+        # tower 
+        if price == 250:
+            tower["img"] = self.tower_images[0]
+            tower["range"] = 220
+            tower["damage"] = 30
+            tower["shooting_speed"] = 7
+            tower["shooting_rate"] = 45
+        elif price == 500:
+            tower["img"] = self.tower_images[1]
+            tower["range"] = 280
+            tower["damage"] = 40
+            tower["shooting_speed"] = 8
+            tower["shooting_rate"] = 40
+        elif price == 1000:
+            tower["img"] = self.tower_images[2]
+            tower["range"] = 350
+            tower["damage"] = 60
+            tower["shooting_speed"] = 10
+            tower["shooting_rate"] = 30
+        elif price == 2500:
+            tower["img"] = self.tower_images[3]
+            tower["range"] = 450
+            tower["damage"] = 100
+            tower["shooting_speed"] = 12
+            tower["shooting_rate"] = 20
+
+        return tower
+
+        
+
    
 
 
