@@ -1,11 +1,11 @@
 import pygame
 
 class Tower(pygame.sprite.Sprite):
-  def __init__(self, range, damage, shooting_speed, shooting_rate, width, height, pos_x, pos_y):
+  def __init__(self, range, damage, image_file, shooting_speed, shooting_rate, width, height, pos_x, pos_y):
     super(Tower, self).__init__()
     self._pos_x = pos_x
     self._pos_y = pos_y
-    self._surf = pygame.image.load('assets/towers/tower-1.png').convert_alpha() # Load image file
+    self._surf = pygame.image.load(image_file).convert_alpha() # Load image file
     self._surf = pygame.transform.scale(self._surf, (width, height * 2)) # Resize image to match original surface
     self.rect = self._surf.get_rect(
         center=(pos_x, pos_y - (height // 2))
