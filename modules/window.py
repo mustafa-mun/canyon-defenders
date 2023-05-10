@@ -12,6 +12,7 @@ class Window:
         self.towers = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
         self.buy_tower_coords = []
+        self.purchased_tower = None
 
     def show_tower_buy(self, screen):
         tower_images = [
@@ -176,25 +177,24 @@ class CoordinateManager:
                 }]
         
     # check if tile coordinate in a placement tile range
-    def is_coordinate_valid_placement_point(self, x, y, coordinates, is_clicked_on_tower_buy):
-        if not is_clicked_on_tower_buy:
+    def is_coordinate_valid_placement_point(self, x, y, coordinates):
+    
+        for block in coordinates:
+            # get maximum coordinates
+            max_x = block["x"] + block["width"]
+            max_y = block["y"] + block["height"]
+            # check if coordinates are in range
+            if x >= block["x"] and x <= max_x and y >= block["y"] and y <= max_y:
+                # coordinates are in range
+                if block["is_placed"]:
+                    # there is already a tower placed
+                    print("already placed")
+                    return False
+                else:
+                    block["is_placed"] = True
+                    return block
+        # coordinates are out of range
+        print("out of range")
+        return False
 
-            for block in coordinates:
-                # get maximum coordinates
-                max_x = block["x"] + block["width"]
-                max_y = block["y"] + block["height"]
-                # check if coordinates are in range
-                if x >= block["x"] and x <= max_x and y >= block["y"] and y <= max_y:
-                    # coordinates are in range
-                    if block["is_placed"]:
-                        # there is already a tower placed
-                        print("already placed")
-                        return False
-                    else:
-                        block["is_placed"] = True
-                        return block
-            # coordinates are out of range
-            print("out of range")
-            return False
-        print("you clicked on a tower buy section")
 

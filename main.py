@@ -54,6 +54,7 @@ while running:
                 # check if user clicked a tower buy image
                 if x < pos[0] < x + win.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + win.buy_tower_coords[i]["tower"].get_height():
                     print(f"Tower price => {win.buy_tower_coords[i]['tower_price']}")
+                    win.purchased_tower = win.buy_tower_coords[i]
         
         # handle drop 
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -61,7 +62,7 @@ while running:
             pos = pygame.mouse.get_pos()
 
             # purchased tower
-            purchased_tower = None
+            print(win.purchased_tower)
 
             for i in range(len(win.buy_tower_coords)):
                 # handle drop 
@@ -74,7 +75,8 @@ while running:
                 # coordinate is valid, create new tower 
                 x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                 y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
-                new_tower = Tower(220, 15, 5, 45, valid_coordinate["width"], valid_coordinate["height"], x, y)
+                # create new tower with purchased tower 
+                new_tower = Tower(220, 15, "assets/towers/tower-1.png",  5,45, valid_coordinate["width"], valid_coordinate["height"], x, y)
                 win.all_sprites.add(new_tower)
                 win.towers.add(new_tower)
 
