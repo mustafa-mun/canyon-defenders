@@ -43,25 +43,32 @@ while running:
             new_enemy = Enemy(100, 2, 50, coordinate_manager._waypoints)
             win.all_sprites.add(new_enemy)
             win.enemies.add(new_enemy)
-        # handle tower placing
-        elif event.type == pygame.MOUSEBUTTONUP:
+        # handle tower buy 
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             # get mouse position
             pos = pygame.mouse.get_pos()
-            is_clicked_on_tower_buy = False
 
             for i in range(len(win.buy_tower_coords)):
-                # get towers x, y position
                 x = win._SCREEN_WIDTH//2 - win.buy_tower_coords[i]["tower"].get_width()//2 + (i-1.5)*1.5*win.buy_tower_coords[i]["tower"].get_width()
                 y = 15
                 # check if user clicked a tower buy image
                 if x < pos[0] < x + win.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + win.buy_tower_coords[i]["tower"].get_height():
-                    # handle tower buying
-                    is_clicked_on_tower_buy = True
                     print(f"Tower price => {win.buy_tower_coords[i]['tower_price']}")
+        
+        # handle drop 
+        elif event.type == pygame.MOUSEBUTTONUP:
+            # get mouse position
+            pos = pygame.mouse.get_pos()
 
+            # purchased tower
+            purchased_tower = None
 
+            for i in range(len(win.buy_tower_coords)):
+                # handle drop 
+                pass
+            
             # check if mouse coordinate is valid
-            valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks, is_clicked_on_tower_buy)
+            valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks)
             if valid_coordinate:
                 # set tower properties by buyed tower
                 # coordinate is valid, create new tower 
