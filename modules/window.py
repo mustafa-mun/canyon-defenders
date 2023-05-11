@@ -157,7 +157,7 @@ class CoordinateManager:
                 }]
         
     # check if tile coordinate in a placement tile range
-    def is_coordinate_valid_placement_point(self, x, y, coordinates,win):
+    def is_coordinate_valid_placement_point(self, x, y, coordinates,win, player):
         pos = pygame.mouse.get_pos()
         for block in coordinates:
             # get maximum coordinates
@@ -171,25 +171,30 @@ class CoordinateManager:
                     # handle tower upgrading
                     for sprite in win.towers:
                         if sprite.rect.collidepoint(pos):
-                            # check if user is trying to upgrade tower with same tower on block 
+                            # check if player is trying to upgrade tower with same tower on block 
                             if sprite._image_file != win.purchased_tower["img"]:
-                                # user is trying to upgrade the tower
+                                # player is trying to upgrade the tower
+                                original_price = win.purchased_tower["price"] # keep track the old price for creating tower with original price 
                                 # update purchased tower by substracting the price of old tower
                                 win.purchased_tower["price"] -= sprite._price
                                 # remove old tower
                                 win.all_sprites.remove(sprite)
                                 win.towers.remove(sprite)
-                                return block
+                                # return block and original price
+                                return block, original_price
                             else:
-                                print("The towers are the same")
-                                return False
+                                # player is trying to upgrade tower with same tower
+                                return False, None
                 # coordinate is valid and there is no tower in the block
                 else:
-                    block["is_placed"] = True
-                    return block
+                    # If player has enough money
+                    if player.money >= win.purchased_tower["price"]:
+                        block["is_placed"] = True
+                        return block, win.purchased_tower["price"]
+                    # player has not enough money
+                    return False, None
         # coordinates are out of range
-        print("out of range")
-        return False
+        return False, None
     
     def show_tower_buy(self, screen, win):
         font = pygame.font.Font('freesansbold.ttf', 21)

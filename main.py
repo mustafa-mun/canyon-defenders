@@ -78,11 +78,8 @@ while running:
                 y = 15
                 # check if user clicked a tower buy image
                 if x < pos[0] < x + coordinate_manager.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + coordinate_manager.buy_tower_coords[i]["tower"].get_height():
-                    # if player has enough money
-                    if player.money >= coordinate_manager.buy_tower_coords[i]['tower_price']:
-                        win.mouse_pressed = True
-                        print(f"Tower price => {coordinate_manager.buy_tower_coords[i]['tower_price']}")
-                        win.purchased_tower = coordinate_manager.determine_tower(coordinate_manager.buy_tower_coords[i]['tower_price'], coordinate_manager.buy_tower_coords[i]["tower"])
+                    win.mouse_pressed = True
+                    win.purchased_tower = coordinate_manager.determine_tower(coordinate_manager.buy_tower_coords[i]['tower_price'], coordinate_manager.buy_tower_coords[i]["tower"])
         
 
         # handle drop 
@@ -93,22 +90,21 @@ while running:
             # If user purchased a tower
             if win.purchased_tower:
                 # check if mouse coordinate is valid
-                valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks, win)
-                if valid_coordinate:
-            
-                    player.money -= win.purchased_tower["price"]
-                    # player have money
+                valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks, win, player)
+                
+                if valid_coordinate[0] and valid_coordinate[1]:
                     # coordinate is valid, create new tower 
-                    x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
-                    y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
+                    player.money -= win.purchased_tower["price"]
+                    # get towers x,y position
+                    x = valid_coordinate[0]["x"] + (valid_coordinate[0]["width"] / 2)
+                    y = valid_coordinate[0]["y"] + (valid_coordinate[0]["height"] / 2)
                     # create new tower with purchased tower 
-                    new_tower = Tower(win.purchased_tower["price"],win.purchased_tower["range"], win.purchased_tower["damage"], win.purchased_tower["img"], win.purchased_tower["shooting_speed"], win.purchased_tower["shooting_rate"], valid_coordinate["width"], valid_coordinate["height"], x, y)
+                    new_tower = Tower(valid_coordinate[1],win.purchased_tower["range"], win.purchased_tower["damage"], win.purchased_tower["img"], win.purchased_tower["shooting_speed"], win.purchased_tower["shooting_rate"], valid_coordinate[0]["width"], valid_coordinate[0]["height"], x, y)
+                    # add tower to the sprite groups
                     win.all_sprites.add(new_tower)
                     win.towers.add(new_tower)
                     # set the purchased tower to none
                     win.purchased_tower = None
-                else:
-                    print("you don't have enough money")
 
     # handle dragging purchased tower 
     if win.mouse_pressed:
