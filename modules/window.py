@@ -157,8 +157,8 @@ class CoordinateManager:
                 }]
         
     # check if tile coordinate in a placement tile range
-    def is_coordinate_valid_placement_point(self, x, y, coordinates):
-    
+    def is_coordinate_valid_placement_point(self, x, y, coordinates,win):
+        pos = pygame.mouse.get_pos()
         for block in coordinates:
             # get maximum coordinates
             max_x = block["x"] + block["width"]
@@ -167,9 +167,21 @@ class CoordinateManager:
             if x >= block["x"] and x <= max_x and y >= block["y"] and y <= max_y:
                 # coordinates are in range
                 if block["is_placed"]:
-                    # there is already a tower placed
-                    print("already placed")
-                    return False
+                    # there is already a tower
+                    # handle tower upgrading
+                    for sprite in win.towers:
+                        if sprite.rect.collidepoint(pos):
+                            # check if user is trying to upgrade tower with same tower on block 
+                            if sprite._image_file != win.purchased_tower["img"]:
+                                # user is trying to upgrade the tower
+                                # remove old tower
+                                win.all_sprites.remove(sprite)
+                                win.towers.remove(sprite)
+                                return block
+                            else:
+                                print("The towers are the same")
+                                return False
+                # coordinate is valid and there is no tower in the block
                 else:
                     block["is_placed"] = True
                     return block

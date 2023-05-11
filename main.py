@@ -68,7 +68,7 @@ while running:
             # If user purchased a tower
             if win.purchased_tower:
                 # check if mouse coordinate is valid
-                valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks)
+                valid_coordinate = coordinate_manager.is_coordinate_valid_placement_point(pos[0], pos[1], coordinate_manager._placement_blocks, win)
                 if valid_coordinate:
             
                     player.money -= win.purchased_tower["price"]

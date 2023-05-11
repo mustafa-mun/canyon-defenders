@@ -3,6 +3,7 @@ import pygame
 class Tower(pygame.sprite.Sprite):
   def __init__(self, range, damage, image_file, shooting_speed, shooting_rate, width, height, pos_x, pos_y):
     super(Tower, self).__init__()
+    self._image_file = image_file
     self._pos_x = pos_x
     self._pos_y = pos_y
     self._surf = pygame.image.load(image_file).convert_alpha() # Load image file
