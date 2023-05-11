@@ -1,5 +1,32 @@
 import pygame
 
+class WaveController:
+    # this numbers will be changed
+    def __init__(self):
+        self._wave_index = 0
+        self._spawn_count = 0
+        self._enemy_numbers = []
+        self._populate_enemy_numbers()
+        self._enemy_speeds = [2, 2, 3, 3, 4, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15]
+        self._enemy_healths = [50, 75]
+        self._populate_enemy_healths()
+        self._enemy_rewards = [50, 50, 50, 60, 60, 70, 70, 70, 80, 80, 90, 90, 100, 100, 100]
+        self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 300, 300, 300, 200, 200, 200, 200]
+
+    def _populate_enemy_numbers(self):
+        base_number = 10
+        for i in range(15):
+            self._enemy_numbers.append(base_number)
+            base_number += 5
+    
+    def _populate_enemy_healths(self):
+        base_number = 100
+        for i in range(15 - len(self._enemy_healths)):
+            self._enemy_healths.append(base_number)
+            base_number += 50
+            
+        print(self._enemy_healths)
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, health, speed, reward, waypoints):
         super(Enemy, self).__init__()

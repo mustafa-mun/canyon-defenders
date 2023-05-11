@@ -1,5 +1,5 @@
 from modules.window import Window, Background, CoordinateManager
-from modules.enemy import Enemy
+from modules.enemy import Enemy, WaveController
 from modules.tower import Tower, Projectile
 from modules.player import Player
 import pygame
@@ -21,13 +21,17 @@ player = Player()
 # create coordinate manager
 coordinate_manager = CoordinateManager()
 
+wave_controller = WaveController()
+
 # Create a custom event for adding a new enemy every second
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 1000)
 
+ADDWAVE = pygame.USEREVENT + 2
+
 # handle framerate
 clock = pygame.time.Clock()
-
+spawn_count = 0
 # main game loop
 running = True
 while running:
@@ -37,12 +41,33 @@ while running:
         # handle quit
         if event.type == pygame.QUIT:
             running = False
+
         # handle enemy spawn
         elif event.type == ADDENEMY:
-            # create new enemy 
-            new_enemy = Enemy(100, 2, 20000, coordinate_manager._waypoints)
-            win.all_sprites.add(new_enemy)
-            win.enemies.add(new_enemy)
+            wave_index = wave_controller._wave_index
+            if wave_controller._spawn_count < wave_controller._enemy_numbers[wave_index]:
+                wave_controller._spawn_count += 1
+                # create new enemy 
+                new_enemy = Enemy(wave_controller._enemy_healths[wave_index] , wave_controller._enemy_speeds[wave_index], wave_controller._enemy_rewards[wave_index], coordinate_manager._waypoints)
+                win.all_sprites.add(new_enemy)
+                win.enemies.add(new_enemy)
+            # We need 5 seconds delay here 
+            else:
+                # If wave is finished
+                if len(win.enemies) == 0:
+                    # Stop the ADDENEMY event
+                    pygame.time.set_timer(ADDENEMY, 0)
+                    # Set the DELAYWAVE event to trigger after 5 seconds
+                    pygame.time.set_timer(ADDWAVE, 5000)
+                    wave_controller._spawn_count = 0
+                    wave_controller._wave_index += 1
+        elif event.type == ADDWAVE:
+            # Stop the ADDWAVE event
+            pygame.time.set_timer(ADDWAVE, 0)
+            # Start the next wave by setting the ADDENEMY event to trigger again
+            pygame.time.set_timer(ADDENEMY, wave_controller._enemy_rate[wave_controller._wave_index])
+
+
         # handle tower buy 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # get mouse position
