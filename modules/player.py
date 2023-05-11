@@ -8,12 +8,12 @@ class Player(pygame.sprite.Sprite):
       self.money = 250
 
     def show_health(self):
-       font = pygame.font.Font('freesansbold.ttf', 35)
+       font = pygame.font.Font('freesansbold.ttf', 32)
        health = font.render(f"HEALTH: {str(self.health)}", True, (0, 0, 0))
        return health
     
     def show_money(self):
-       font = pygame.font.Font('freesansbold.ttf', 35)
+       font = pygame.font.Font('freesansbold.ttf', 32)
        money = font.render(f"MONEY: {str(self.money)}", True, (0, 0, 0))
        return money
 
