@@ -25,7 +25,10 @@ class WaveController:
             self._enemy_healths.append(base_number)
             base_number += 50
             
-        print(self._enemy_healths)
+    def show_wave_number(self):
+       font = pygame.font.Font('freesansbold.ttf', 32)
+       wave = font.render(f"WAVE: {str(self._wave_index + 1)}", True, (0, 0, 0))
+       return wave
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, health, speed, reward, waypoints):
