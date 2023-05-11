@@ -45,6 +45,9 @@ while running:
         # handle enemy spawn
         elif event.type == ADDENEMY:
             wave_index = wave_controller._wave_index
+            # handle game win
+            if wave_index > len(wave_controller._enemy_numbers):
+                running = False
             if wave_controller._spawn_count < wave_controller._enemy_numbers[wave_index]:
                 wave_controller._spawn_count += 1
                 # create new enemy 
