@@ -7,11 +7,11 @@ class WaveController:
         self._spawn_count = 0
         self._enemy_numbers = []
         self._populate_enemy_numbers()
-        self._enemy_speeds = [2, 2, 3, 3, 4, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9]
+        self._enemy_speeds = [3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8]
         self._enemy_healths = []
         self._populate_enemy_healths()
-        self._enemy_rewards = [50, 50, 50, 60, 60, 70, 70, 70, 100, 100, 100, 120, 120, 140, 140]
-        self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 350, 350, 350, 300, 300, 250]
+        self._enemy_rewards = [50, 50, 50, 60, 60, 70, 85, 85, 95, 95, 120, 120, 140, 140, 150]
+        self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 350, 350, 350, 300, 300, 300]
 
     def _populate_enemy_numbers(self):
         base_number = 10
@@ -23,7 +23,7 @@ class WaveController:
         base_number = 50
         for i in range(15):
             self._enemy_healths.append(base_number)
-            base_number += 50
+            base_number += 70
             
     def show_wave_number(self):
        font = pygame.font.Font('freesansbold.ttf', 32)

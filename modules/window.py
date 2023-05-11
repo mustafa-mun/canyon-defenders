@@ -32,7 +32,7 @@ class CoordinateManager:
             "assets/towers/tower-3.png",
             "assets/towers/tower-4.png"
         ]
-        self.tower_costs = [250, 500, 1500, 4500]
+        self.tower_costs = [250, 750, 2000, 5000]
         self._waypoints = [
                         {
                          "x":-126.666666666667,
@@ -234,27 +234,27 @@ class CoordinateManager:
         if price == 250:
             tower["img"] = self.tower_images[0]
             tower["range"] = 220
-            tower["damage"] = 30
-            tower["shooting_speed"] = 8
+            tower["damage"] = 50
+            tower["shooting_speed"] = 9
             tower["shooting_rate"] = 40
-        elif price == 500:
+        elif price == 750:
             tower["img"] = self.tower_images[1]
             tower["range"] = 280
-            tower["damage"] = 80
-            tower["shooting_speed"] = 12
+            tower["damage"] = 150
+            tower["shooting_speed"] = 15
             tower["shooting_rate"] = 30
-        elif price == 1500:
+        elif price == 2000:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
-            tower["damage"] = 150
-            tower["shooting_speed"] = 16
+            tower["damage"] = 250
+            tower["shooting_speed"] = 21
             tower["shooting_rate"] = 25
-        elif price == 4500:
+        elif price == 5000:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
-            tower["damage"] = 400
-            tower["shooting_speed"] = 20
-            tower["shooting_rate"] = 20
+            tower["damage"] = 450
+            tower["shooting_speed"] = 26
+            tower["shooting_rate"] = 15
 
         return tower
 
