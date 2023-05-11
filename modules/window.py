@@ -171,21 +171,23 @@ class CoordinateManager:
                     # handle tower upgrading
                     for sprite in win.towers:
                         if sprite.rect.collidepoint(pos):
-                            # check if player is trying to upgrade tower with same tower on block 
-                            if sprite._image_file != win.purchased_tower["img"]:
+                            # check if player is trying to upgrade tower with same tower on block or trying to downgrade
+                            if sprite._image_file != win.purchased_tower["img"] and sprite._price <= win.purchased_tower["price"]:
                                 # player is trying to upgrade the tower
-                                original_price = win.purchased_tower["price"] # keep track the old price for creating tower with original price 
+                                original_price = win.purchased_tower["price"] # keep track the old price for creating tower with original price
                                 # update purchased tower by substracting the price of old tower
                                 win.purchased_tower["price"] -= sprite._price
-                                # remove old tower
-                                win.all_sprites.remove(sprite)
-                                win.towers.remove(sprite)
-                                # return block and original price
-                                return block, original_price
+                                # If player has enough money
+                                if player.money >= win.purchased_tower["price"]: 
+                                    # remove old tower
+                                    win.all_sprites.remove(sprite)
+                                    win.towers.remove(sprite)
+                                    # return block and original price
+                                    return block, original_price
                             else:
                                 # player is trying to upgrade tower with same tower
                                 return False, None
-                # coordinate is valid and there is no tower in the block
+                    # coordinate is valid and there is no tower in the block
                 else:
                     # If player has enough money
                     if player.money >= win.purchased_tower["price"]:
@@ -238,20 +240,20 @@ class CoordinateManager:
         elif price == 500:
             tower["img"] = self.tower_images[1]
             tower["range"] = 280
-            tower["damage"] = 40
-            tower["shooting_speed"] = 8
+            tower["damage"] = 60
+            tower["shooting_speed"] = 10
             tower["shooting_rate"] = 40
         elif price == 1000:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
-            tower["damage"] = 60
-            tower["shooting_speed"] = 10
+            tower["damage"] = 80
+            tower["shooting_speed"] = 14
             tower["shooting_rate"] = 30
         elif price == 2500:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
             tower["damage"] = 100
-            tower["shooting_speed"] = 12
+            tower["shooting_speed"] = 18
             tower["shooting_rate"] = 20
 
         return tower
