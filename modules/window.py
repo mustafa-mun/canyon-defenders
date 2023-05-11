@@ -32,7 +32,7 @@ class CoordinateManager:
             "assets/towers/tower-3.png",
             "assets/towers/tower-4.png"
         ]
-        self.tower_costs = [250, 500, 1000, 2500]
+        self.tower_costs = [250, 500, 1500, 4500]
         self._waypoints = [
                         {
                          "x":-126.666666666667,
@@ -175,7 +175,7 @@ class CoordinateManager:
                             if sprite._image_file != win.purchased_tower["img"] and sprite._price <= win.purchased_tower["price"]:
                                 # player is trying to upgrade the tower
                                 original_price = win.purchased_tower["price"] # keep track the old price for creating tower with original price
-                                # update purchased tower by substracting the price of old tower
+                                # update purchased towers price by substracting the price of old tower
                                 win.purchased_tower["price"] -= sprite._price
                                 # If player has enough money
                                 if player.money >= win.purchased_tower["price"]: 
@@ -230,30 +230,30 @@ class CoordinateManager:
             "shooting_speed": None,
             "shooting_rate": None
         }
-        # tower 
+        # features of towers
         if price == 250:
             tower["img"] = self.tower_images[0]
             tower["range"] = 220
             tower["damage"] = 30
-            tower["shooting_speed"] = 7
-            tower["shooting_rate"] = 45
+            tower["shooting_speed"] = 8
+            tower["shooting_rate"] = 40
         elif price == 500:
             tower["img"] = self.tower_images[1]
             tower["range"] = 280
-            tower["damage"] = 60
-            tower["shooting_speed"] = 10
-            tower["shooting_rate"] = 40
-        elif price == 1000:
+            tower["damage"] = 80
+            tower["shooting_speed"] = 12
+            tower["shooting_rate"] = 30
+        elif price == 1500:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
-            tower["damage"] = 80
-            tower["shooting_speed"] = 14
-            tower["shooting_rate"] = 30
-        elif price == 2500:
+            tower["damage"] = 150
+            tower["shooting_speed"] = 16
+            tower["shooting_rate"] = 25
+        elif price == 4500:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
-            tower["damage"] = 100
-            tower["shooting_speed"] = 18
+            tower["damage"] = 250
+            tower["shooting_speed"] = 20
             tower["shooting_rate"] = 20
 
         return tower
