@@ -1,7 +1,7 @@
 import pygame
 
 class Tower(pygame.sprite.Sprite):
-  def __init__(self, range, damage, image_file, shooting_speed, shooting_rate, width, height, pos_x, pos_y):
+  def __init__(self, price, range, damage, image_file, shooting_speed, shooting_rate, width, height, pos_x, pos_y):
     super(Tower, self).__init__()
     self._image_file = image_file
     self._pos_x = pos_x
@@ -14,7 +14,8 @@ class Tower(pygame.sprite.Sprite):
     self.shoot_timer = 0
     self._shooting_rate = shooting_rate
     self._shooting_speed = shooting_speed
-    self._damage = damage    
+    self._damage = damage
+    self._price = price    
     self.range_box = pygame.Rect(pos_x - (width // 2) - (range // 2),
                                      pos_y - (height // 2) - (range // 2),
                                      width + range,

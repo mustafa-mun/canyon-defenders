@@ -174,6 +174,8 @@ class CoordinateManager:
                             # check if user is trying to upgrade tower with same tower on block 
                             if sprite._image_file != win.purchased_tower["img"]:
                                 # user is trying to upgrade the tower
+                                # update purchased tower by substracting the price of old tower
+                                win.purchased_tower["price"] -= sprite._price
                                 # remove old tower
                                 win.all_sprites.remove(sprite)
                                 win.towers.remove(sprite)

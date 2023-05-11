@@ -102,7 +102,7 @@ while running:
                     x = valid_coordinate["x"] + (valid_coordinate["width"] / 2)
                     y = valid_coordinate["y"] + (valid_coordinate["height"] / 2)
                     # create new tower with purchased tower 
-                    new_tower = Tower(win.purchased_tower["range"], win.purchased_tower["damage"], win.purchased_tower["img"], win.purchased_tower["shooting_speed"], win.purchased_tower["shooting_rate"], valid_coordinate["width"], valid_coordinate["height"], x, y)
+                    new_tower = Tower(win.purchased_tower["price"],win.purchased_tower["range"], win.purchased_tower["damage"], win.purchased_tower["img"], win.purchased_tower["shooting_speed"], win.purchased_tower["shooting_rate"], valid_coordinate["width"], valid_coordinate["height"], x, y)
                     win.all_sprites.add(new_tower)
                     win.towers.add(new_tower)
                     # set the purchased tower to none
@@ -124,7 +124,8 @@ while running:
 
     # handle when player out of health
     if player.health <= 0:
-        pass
+        # this will change
+        running = False
    
 
     # add background
@@ -164,6 +165,8 @@ while running:
     screen.blit(player.show_health(), (25, 25))
     # draw players money
     screen.blit(player.show_money(), (25, 75))
+    # draw wave number
+    screen.blit(wave_controller.show_wave_number(), (25, 125))
     # draw towers to buy
     coordinate_manager.show_tower_buy(screen, win)
     # make enemies move and draw their health
