@@ -185,7 +185,7 @@ class CoordinateManager:
                                     # return block and original price
                                     return block, original_price
                             else:
-                                # player is trying to upgrade tower with same tower
+                                # player is trying to upgrade tower with same tower or trying to downgrade
                                 return False, None
                     # coordinate is valid and there is no tower in the block
                 else:
