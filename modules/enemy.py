@@ -11,7 +11,7 @@ class WaveController:
         self._enemy_healths = []
         self._populate_enemy_healths()
         self._enemy_rewards = [50, 50, 50, 60, 60, 70, 70, 70, 100, 100, 100, 120, 120, 140, 140]
-        self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 300, 300, 300, 200, 200, 100]
+        self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 350, 350, 350, 300, 300, 250]
 
     def _populate_enemy_numbers(self):
         base_number = 10
