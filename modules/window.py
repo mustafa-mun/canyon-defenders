@@ -34,38 +34,39 @@ class CoordinateManager:
         ]
         self.tower_costs = [250, 750, 2000, 5000]
         self._waypoints = [
-                        {
-                         "x":-126.666666666667,
-                         "y":418.666666666667
-                        }, 
-                        {
-                         "x":220,
-                         "y":412
-                        }, 
-                        {
-                         "x":224,
-                         "y":225.333333333333
-                        }, 
-                        {
-                         "x":538.666666666667,
-                         "y":225.333333333333
-                        }, 
-                        {
-                         "x":541.333333333333,
-                         "y":602.666666666667
-                        }, 
-                        {
-                         "x":1054.66666666667,
-                         "y":604
-                        }, 
-                        {
-                         "x":1056,
-                         "y":418.666666666667
-                        }, 
-                        {
-                         "x":1321.33333333333,
-                         "y":410.666666666667
-                        }]
+        {
+            "x": -151.666666666667,
+            "y": 368.666666666667
+        }, 
+        {
+            "x": 195,
+            "y": 362
+        }, 
+        {
+            "x": 199,
+            "y": 175.333333333333
+        }, 
+        {
+            "x": 513.666666666667,
+            "y": 175.333333333333
+        }, 
+        {
+            "x": 516.333333333333,
+            "y": 552.666666666667
+        }, 
+        {
+            "x": 1029.66666666667,
+            "y": 554
+        }, 
+        {
+            "x": 1031,
+            "y": 368.666666666667
+        }, 
+        {
+            "x": 1296.33333333333,
+            "y": 360.666666666667
+        }
+    ]
         self._placement_blocks = [
                 {
                  "height":64,
@@ -240,20 +241,20 @@ class CoordinateManager:
         elif price == 750:
             tower["img"] = self.tower_images[1]
             tower["range"] = 280
-            tower["damage"] = 150
-            tower["shooting_speed"] = 15
+            tower["damage"] = 125
+            tower["shooting_speed"] = 13
             tower["shooting_rate"] = 30
         elif price == 2000:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
-            tower["damage"] = 200
+            tower["damage"] = 275
             tower["shooting_speed"] = 18
             tower["shooting_rate"] = 25
         elif price == 5000:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
-            tower["damage"] = 350
-            tower["shooting_speed"] = 22
+            tower["damage"] = 450
+            tower["shooting_speed"] = 23
             tower["shooting_rate"] = 15
 
         return tower
