@@ -246,14 +246,14 @@ class CoordinateManager:
         elif price == 2000:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
-            tower["damage"] = 250
-            tower["shooting_speed"] = 21
+            tower["damage"] = 200
+            tower["shooting_speed"] = 18
             tower["shooting_rate"] = 25
         elif price == 5000:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
-            tower["damage"] = 450
-            tower["shooting_speed"] = 26
+            tower["damage"] = 350
+            tower["shooting_speed"] = 22
             tower["shooting_rate"] = 15
 
         return tower
