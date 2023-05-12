@@ -54,9 +54,9 @@ class Projectile(pygame.sprite.Sprite):
     )
     self._speed = self._tower._shooting_speed
 
-  def update(self):
-        # move only if enemy is in tower range
-        if self._enemy.rect.x <= self._tower.range_box.right:
+  def update(self, screen):
+        # move only if enemy is in tower range and not crossed the road
+        if self._enemy.rect.x <= self._tower.range_box.right and self._enemy.rect.x < screen._SCREEN_WIDTH:
            # handle right
           if self.rect.x < self._enemy.rect.x:
               self.rect.move_ip(self._speed, 0)

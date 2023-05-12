@@ -154,7 +154,7 @@ while running:
     for projectile in win.projectiles:
         if projectile._enemy.rect.x > 0:
             # projectile folllows the enemy
-            projectile.update()
+            projectile.update(win)
             if projectile.rect.colliderect(projectile._enemy.rect):
                 # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
                 projectile._enemy.health -= projectile._tower._damage
