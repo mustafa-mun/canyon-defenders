@@ -7,10 +7,10 @@ class WaveController:
         self._spawn_count = 0
         self._enemy_numbers = []
         self._populate_enemy_numbers()
-        self._enemy_speeds = [3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8]
+        self._enemy_speeds = [3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7, 8]
         self._enemy_healths = []
         self._populate_enemy_healths()
-        self._enemy_rewards = [30, 30, 30, 35, 35, 35, 40, 45, 50, 50, 55, 55, 55, 55, 55]
+        self._enemy_rewards = [45, 45, 45, 45, 45, 45, 50, 50, 50, 50, 55, 55, 55, 55, 55]
         self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 350, 350, 350, 300, 300, 300]
 
     def _populate_enemy_numbers(self):
@@ -23,7 +23,7 @@ class WaveController:
         base_number = 50
         for i in range(15):
             self._enemy_healths.append(base_number)
-            base_number += 100
+            base_number += 80
             
     def show_wave_number(self):
        font = pygame.font.Font('freesansbold.ttf', 32)
@@ -35,11 +35,9 @@ class Enemy(pygame.sprite.Sprite):
         super(Enemy, self).__init__()
         self.max_health = health
         self.health = health
-        self._surf = pygame.Surface((25, 25))
-        self._surf.fill((0, 0, 0))
-        self.rect = self._surf.get_rect(
-            center=(int(waypoints[0]["x"]), int(waypoints[0]["y"]))
-        )
+        self._surf = pygame.image.load('assets/enemy.png').convert_alpha()
+        self._surf = pygame.transform.scale(self._surf, (85, 85)) # Resize image to match original surface
+        self.rect = self._surf.get_rect(center=(int(waypoints[0]["x"]), int(waypoints[0]["y"])))
         self._reward = reward
         self._waypoints = waypoints
         self._target_waypoint = 0
@@ -49,7 +47,7 @@ class Enemy(pygame.sprite.Sprite):
         pygame.draw.rect(surf, backC, (*pos, *size))
         pygame.draw.rect(surf, borderC, (*pos, *size), 1)
         innerPos = (pos[0] + 1, pos[1] + 1)
-        innerSize = ((size[0] - 2) * progress, size[1] - 2)
+        innerSize = ((size[0] -2) * progress, size[1] -2)
         rect = (
             round(innerPos[0]),
             round(innerPos[1]),
