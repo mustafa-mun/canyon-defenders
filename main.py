@@ -34,9 +34,10 @@ ADDWAVE = pygame.USEREVENT + 2
 # handle framerate
 clock = pygame.time.Clock()
 
-# create text and images for player status
+# create text and images for player and game status
 health_text, health_img = player.show_health()
 money_text, money_img = player.show_money()
+wave_text, wave_img = wave_controller.show_wave_number()
 
 def play():
     # set display caption
@@ -183,7 +184,8 @@ def play():
         screen.blit(money_text, (70, 75))
         screen.blit(money_img, (25, 75))
         # draw wave number
-        screen.blit(wave_controller.show_wave_number(), (25, 125))
+        screen.blit(wave_text, (70, 130))
+        screen.blit(wave_img, (25, 125))
         # draw towers to buy
         coordinate_manager.show_tower_buy(screen, win)
         
