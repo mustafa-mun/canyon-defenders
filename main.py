@@ -28,7 +28,7 @@ wave_controller = WaveController()
 # Create a custom event for adding a new enemy every second
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 1000)
-
+# Create a custom event for adding waves
 ADDWAVE = pygame.USEREVENT + 2
 
 # handle framerate
@@ -138,6 +138,11 @@ def play():
         # draw all sprites
         for entity in win.all_sprites:
             screen.blit(entity._surf, entity.rect)
+
+        # make enemies move and draw their health
+        for enemy in win.enemies:
+            enemy.draw_health(screen, win)
+            enemy.update(player)   
             
         # add projectiles to enemies in range
         for tower in win.towers:
@@ -173,12 +178,8 @@ def play():
         screen.blit(wave_controller.show_wave_number(), (25, 125))
         # draw towers to buy
         coordinate_manager.show_tower_buy(screen, win)
-        # make enemies move and draw their health
-        for enemy in win.enemies:
-            enemy.draw_health(screen, win)
-            enemy.update(player)
         
-    # set framerate to 60 
+        # set framerate to 60 
         clock.tick(60)
         # Flip the display
         pygame.display.flip()
