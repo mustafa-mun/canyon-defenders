@@ -34,12 +34,9 @@ ADDWAVE = pygame.USEREVENT + 2
 # handle framerate
 clock = pygame.time.Clock()
 
-# create text and images for player and game status
-health_text, health_img = player.show_health()
-money_text, money_img = player.show_money()
-wave_text, wave_img = wave_controller.show_wave_number()
-
 def play():
+    # set framerate to 60 
+    clock.tick(60)
     # set display caption
     pygame.display.set_caption("Canyon Defenders")
     # main game loop
@@ -175,22 +172,18 @@ def play():
                     projectile._enemy.health -= projectile._tower._damage
                     projectile.kill()
 
-
-
         # draw players health
-        screen.blit(health_text, (70, 27))
-        screen.blit(health_img, (25, 25))
+        screen.blit(player.show_health(), (70, 27))
+        screen.blit(player.draw_health_icon(), (25, 25))
         # draw players money
-        screen.blit(money_text, (70, 75))
-        screen.blit(money_img, (25, 75))
-        # draw wave number
-        screen.blit(wave_text, (70, 130))
-        screen.blit(wave_img, (25, 125))
+        screen.blit(player.show_money(), (70, 75))
+        screen.blit(player.draw_money_icon(), (25, 75))
+        # # draw wave number
+        screen.blit(wave_controller.show_wave_number(), (70, 130))
+        screen.blit(wave_controller.draw_wave_icon(), (25, 125))
         # draw towers to buy
         coordinate_manager.show_tower_buy(screen, win)
         
-        # set framerate to 60 
-        clock.tick(60)
         # Flip the display
         pygame.display.flip()
     

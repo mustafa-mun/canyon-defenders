@@ -27,10 +27,14 @@ class WaveController:
             
     def show_wave_number(self):
        font = pygame.font.Font('freesansbold.ttf', 32)
-       img = pygame.image.load('assets/enemy.png').convert_alpha()
-       scaled_img = pygame.transform.scale(img, (45, 45))
        wave = font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
-       return wave, scaled_img
+       return wave
+    
+    def draw_wave_icon(self):
+        img = pygame.image.load('assets/enemy.png').convert_alpha()
+        scaled_img = pygame.transform.scale(img, (45, 45))
+        return scaled_img
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, health, speed, reward, waypoints):

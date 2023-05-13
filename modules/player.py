@@ -8,16 +8,22 @@ class Player(pygame.sprite.Sprite):
       self.money = 250
 
     def show_health(self):
-       font = pygame.font.Font('freesansbold.ttf', 32)
-       img = pygame.image.load('assets/heart.png').convert_alpha()
-       scaled_img = pygame.transform.scale(img, (35, 35))
-       health = font.render(f"{str(self.health)}", True, (255, 255, 255))
-       return health, scaled_img
+      font = pygame.font.Font('freesansbold.ttf', 32)
+      health = font.render(f"{str(self.health)}", True, (255, 255, 255))
+      return health
+    
+    def draw_health_icon(self):
+      img = pygame.image.load('assets/heart.png').convert_alpha()
+      scaled_img = pygame.transform.scale(img, (35, 35))
+      return scaled_img
+       
     
     def show_money(self):
-       font = pygame.font.Font('freesansbold.ttf', 32)
-       img = pygame.image.load('assets/coin.png').convert_alpha()
-       scaled_img = pygame.transform.scale(img, (35, 35))
-       money = font.render(f"{str(self.money)}", True, (255, 255, 255))
-       return money, scaled_img
-
+      font = pygame.font.Font('freesansbold.ttf', 32)
+      money = font.render(f"{str(self.money)}", True, (255, 255, 255))
+      return money
+    
+    def draw_money_icon(self):
+      img = pygame.image.load('assets/coin.png').convert_alpha()
+      scaled_img = pygame.transform.scale(img, (35, 35))
+      return scaled_img
