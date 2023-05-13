@@ -59,6 +59,10 @@ def play():
                 else:
                     # If wave is finished
                     if len(win.enemies) == 0:
+                        # handle game win
+                        if wave_index >= len(wave_controller._enemy_numbers):
+                            pygame.quit()
+                            sys.exit()
                         # Stop the ADDENEMY event
                         pygame.time.set_timer(ADDENEMY, 0)
                         # Set the DELAYWAVE event to trigger after 5 seconds
@@ -66,10 +70,6 @@ def play():
                         wave_controller._spawn_count = 0
                         wave_controller._wave_index += 1
             elif event.type == ADDWAVE:
-                # handle game win
-                if wave_index > len(wave_controller._enemy_numbers):
-                    pygame.quit()
-                    sys.exit()
                 # Stop the ADDWAVE event
                 pygame.time.set_timer(ADDWAVE, 0)
                 # Start the next wave by setting the ADDENEMY event to trigger again
