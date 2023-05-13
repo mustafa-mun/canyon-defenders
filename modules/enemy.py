@@ -25,15 +25,15 @@ class WaveController:
             self._enemy_healths.append(base_number)
             base_number += 90
             
-    def show_wave_number(self):
-       font = pygame.font.Font('freesansbold.ttf', 32)
-       wave = font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
-       return wave
-    
-    def draw_wave_icon(self):
+    def draw_wave_info(self):
+        font = pygame.font.Font('assets/font.ttf', 22)
+        wave = font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
         img = pygame.image.load('assets/enemy.png').convert_alpha()
         scaled_img = pygame.transform.scale(img, (45, 45))
-        return scaled_img
+        wave_surface = pygame.Surface((200, 50), pygame.SRCALPHA)
+        wave_surface.blit(wave, (50, 15))
+        wave_surface.blit(scaled_img, (0, 0))
+        return wave_surface
 
 
 class Enemy(pygame.sprite.Sprite):
