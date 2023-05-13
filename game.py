@@ -173,9 +173,9 @@ def play():
                     projectile.kill()
 
         # draw players health and money
-        screen.blit(player.draw_player_info(), (25, 25))  # Position player info surface on screen
-        # # draw wave number
-        screen.blit(wave_controller.draw_wave_info(), (25, 125))
+        player.draw_player_info(screen)
+        # # # draw wave number
+        wave_controller.draw_wave_info(screen)
         # draw towers to buy
         coordinate_manager.show_tower_buy(screen, win)
         

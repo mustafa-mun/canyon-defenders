@@ -12,6 +12,9 @@ class WaveController:
         self._populate_enemy_healths()
         self._enemy_rewards = [50, 50, 45, 45, 45, 45, 45, 45, 45, 35, 35, 35, 30, 30, 25]
         self._enemy_rate = [1000, 1000, 900, 850, 800, 650, 500, 400, 400, 350, 350, 350, 300, 300, 300]
+        self.font = pygame.font.Font('assets/font.ttf', 22)
+        self.img = pygame.image.load('assets/enemy.png').convert_alpha()
+        self.scaled_img = pygame.transform.scale(self.img, (45, 45))
 
     def _populate_enemy_numbers(self):
         base_number = 10
@@ -25,15 +28,12 @@ class WaveController:
             self._enemy_healths.append(base_number)
             base_number += 90
             
-    def draw_wave_info(self):
-        font = pygame.font.Font('assets/font.ttf', 22)
-        wave = font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
-        img = pygame.image.load('assets/enemy.png').convert_alpha()
-        scaled_img = pygame.transform.scale(img, (45, 45))
+    def draw_wave_info(self, screen):
+        wave = self.font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
         wave_surface = pygame.Surface((200, 50), pygame.SRCALPHA)
         wave_surface.blit(wave, (50, 15))
-        wave_surface.blit(scaled_img, (0, 0))
-        return wave_surface
+        wave_surface.blit(self.scaled_img, (0, 0))
+        screen.blit(wave_surface, (25, 125))
 
 
 class Enemy(pygame.sprite.Sprite):
