@@ -205,7 +205,7 @@ class CoordinateManager:
         for i in range(len(self.tower_images)):
             image = pygame.image.load(self.tower_images[i]).convert_alpha()
             scaled = pygame.transform.scale(image, (100, 100))
-            cost_text = font.render(f'${self.tower_costs[i]}', True, (255, 255, 255))
+            cost_text = font.render(f'{self.tower_costs[i]}', True, (255, 255, 255))
             scaled_x = win._SCREEN_WIDTH//2 - scaled.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
             scaled_y = 15
             cost_text_x = win._SCREEN_WIDTH//2 - cost_text.get_width()//2 + (i-1.5)*1.5*scaled.get_width()
