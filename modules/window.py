@@ -236,25 +236,25 @@ class CoordinateManager:
             tower["img"] = self.tower_images[0]
             tower["range"] = 220
             tower["damage"] = 50
-            tower["shooting_speed"] = 9
+            tower["shooting_speed"] = 12
             tower["shooting_rate"] = 40
         elif price == 750:
             tower["img"] = self.tower_images[1]
             tower["range"] = 280
             tower["damage"] = 125
-            tower["shooting_speed"] = 13
+            tower["shooting_speed"] = 16
             tower["shooting_rate"] = 30
         elif price == 2000:
             tower["img"] = self.tower_images[2]
             tower["range"] = 350
             tower["damage"] = 250
-            tower["shooting_speed"] = 18
+            tower["shooting_speed"] = 20
             tower["shooting_rate"] = 25
         elif price == 5000:
             tower["img"] = self.tower_images[3]
             tower["range"] = 450
             tower["damage"] = 375
-            tower["shooting_speed"] = 23
+            tower["shooting_speed"] = 25
             tower["shooting_rate"] = 15
 
         return tower

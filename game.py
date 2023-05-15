@@ -39,8 +39,6 @@ def play():
     pygame.display.set_caption("Canyon Defenders")
     # main game loop
     while True:
-        # set framerate to 60 
-        clock.tick(60)
         # get events
         for event in pygame.event.get():
             # handle quit
@@ -174,11 +172,13 @@ def play():
 
         # draw players health and money
         player.draw_player_info(screen)
-        # # # draw wave number
+        # draw wave number
         wave_controller.draw_wave_info(screen)
         # draw towers to buy
         coordinate_manager.show_tower_buy(screen, win)
         
+        # set framerate to 60 
+        # clock.tick(60)
         # Flip the display
         pygame.display.flip()
     
@@ -194,13 +194,13 @@ def menu():
         # get mouse position
         mouse_pos = pygame.mouse.get_pos()
 
-        menu_text = get_font(100).render("MAIN MENU", True, (152, 213, 234))
+        menu_text = get_font(60).render("CANYON DEFENDERS", True, (152, 213, 234))
         menu_rect = menu_text.get_rect(center=(640, 100))
 
-        play_button = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 350), 
-                                text_input="PLAY", font=get_font(75), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
-        quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 550), 
-                                text_input="QUIT", font=get_font(75), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        play_button = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 300), 
+                                text_input="PLAY", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 500), 
+                                text_input="QUIT", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
 
         screen.blit(menu_text, menu_rect)
 
