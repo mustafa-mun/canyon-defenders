@@ -44,15 +44,24 @@ class Projectile(pygame.sprite.Sprite):
     super(Projectile, self).__init__()
     self._tower = tower
     self._enemy = enemy
+    self._frame_width = 25
+    self._frame_height = 25
+    self._num_frames = 6
+    self._current_frame = 0
     if self._tower._image_file == "assets/towers/tower-1.png" or self._tower._image_file == "assets/towers/tower-2.png":
-        self._surf = pygame.image.load('assets/shoot-1.png').convert_alpha() # Load image file
+        self._load_sprite_sheet('assets/shoot1.png')
     else:
-       self._surf = pygame.image.load('assets/shoot-2.png').convert_alpha() # Load image file
-    self._surf = pygame.transform.scale(self._surf, (25, 25)) # Resize image to match original surface
+       self._load_sprite_sheet('assets/shoot2.png')
     self.rect = self._surf.get_rect(
        center =(self._tower._pos_x, self._tower._pos_y)
     )
     self._speed = self._tower._shooting_speed
+
+
+  def _load_sprite_sheet(self, image):
+    sprite_sheet = pygame.image.load(image).convert_alpha()
+    self._sprite_sheet = pygame.transform.scale(sprite_sheet, (self._frame_width * self._num_frames, self._frame_height))
+    self._surf = self._sprite_sheet.subsurface(pygame.Rect(0, 0, self._frame_width, self._frame_height))
 
   def update(self, screen):
         # move only if enemy is in tower range and not crossed the road
