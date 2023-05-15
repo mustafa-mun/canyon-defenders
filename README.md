@@ -3,7 +3,7 @@ Canyon Defenders is a tower defense game where you must defend your canyon from 
 
 ## Screenshot
 ![](main-menu.png)
-![](game.png)
+![](ingame.png)
 
 ## Run project locally
 
