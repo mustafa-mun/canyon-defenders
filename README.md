@@ -25,7 +25,7 @@ Canyon Defenders was developed using PyGame and map is created with [tiled](http
 - Each of them has it's own damage, range, shooting speed and shooting rate.
 - You can hover over a tower to see it's range.
 
-## Game Stats
+## Game Status
 
 - `Health:` You can see the remaining health before losing the game. Each enemy that passes equals with one health loss.
 - `Money:` You can see your current balance for buying and upgrading towers.
