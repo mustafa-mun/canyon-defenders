@@ -26,7 +26,7 @@ class WaveController:
         base_number = 50
         for i in range(15):
             self._enemy_healths.append(base_number)
-            base_number += 70
+            base_number += 65
             
     def draw_wave_info(self, screen):
         wave = self.font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))
