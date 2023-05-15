@@ -40,4 +40,4 @@ Start game
 
 ##  Development
 
-Canyon Defenders was developed using PyGame and map is created with [tiled](https://www.mapeditor.org/). You can access assets for free from this [youtube video](https://www.youtube.com/watch?v=C4_iRLlPNFc).
+Canyon Defenders was developed using PyGame and map is created with [tiled](https://www.mapeditor.org/). You can access assets for free from this [youtube video](https://www.youtube.com/watch?v=C4_iRLlPNFc) and this [website](https://craftpix.net/).
