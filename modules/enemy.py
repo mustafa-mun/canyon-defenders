@@ -41,13 +41,19 @@ class Enemy(pygame.sprite.Sprite):
         super(Enemy, self).__init__()
         self.max_health = health
         self.health = health
-        self._surf = pygame.image.load('assets/enemy.png').convert_alpha()
-        self._surf = pygame.transform.scale(self._surf, (85, 85)) # Resize image to match original surface
+        self._frame_width = 85
+        self._frame_height = 85
+        self._num_frames = 7
+        self._current_frame = 0
+        self._load_sprite_sheet()
         self.rect = self._surf.get_rect(center=(int(waypoints[0]["x"]), int(waypoints[0]["y"])))
         self._reward = reward
         self._waypoints = waypoints
         self._target_waypoint = 0
         self._speed = speed
+
+
+  
 
     def draw_health_bar(self, surf, pos, size, borderC, backC, healthC, progress):
         pygame.draw.rect(surf, backC, (*pos, *size))
@@ -62,6 +68,12 @@ class Enemy(pygame.sprite.Sprite):
         )
         pygame.draw.rect(surf, healthC, rect)
 
+
+    def _load_sprite_sheet(self):
+        sprite_sheet = pygame.image.load('assets/orc.png').convert_alpha()
+        self._sprite_sheet = pygame.transform.scale(sprite_sheet, (self._frame_width * self._num_frames, self._frame_height))
+        self._surf = self._sprite_sheet.subsurface(pygame.Rect(0, 0, self._frame_width, self._frame_height))
+ 
     def draw_health(self, surf, win):
         # Check if sprite is still within the screen boundaries
         if self.rect.right < win._SCREEN_WIDTH - 3:
@@ -78,6 +90,12 @@ class Enemy(pygame.sprite.Sprite):
             )
 
     def update(self, player):
+         # Animate the enemy
+        self._current_frame = (self._current_frame + 1) % self._num_frames
+        x = self._current_frame * self._frame_width
+        y = 0  # Adjust if the frames are not in the first row
+        self._surf = self._sprite_sheet.subsurface(pygame.Rect(x, y, self._frame_width, self._frame_height))
+
         # If health is 0 or less, kill enemy
         if self.health <= 0:
             # Increase players money
