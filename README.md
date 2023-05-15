@@ -5,6 +5,17 @@ Canyon Defenders is a tower defense game where you must defend your canyon from 
 ![](screenshots/main-menu.png)
 ![](screenshots/ingame.png)
 
+##  Development
+
+Canyon Defenders was developed using PyGame and map is created with [tiled](https://www.mapeditor.org/). You can access assets for free from this [youtube video](https://www.youtube.com/watch?v=C4_iRLlPNFc) and this [website](https://craftpix.net/).
+
+## How to Play
+
+- Drag and drop towers onto the map to place them.
+- Drag and drop new towers onto existing towers to upgrade them.
+- Use your towers to defeat all the enemies in each wave.
+-  Survive all 15 waves to win the game!
+
 ## Run project locally
 
 Clone the project
@@ -31,13 +42,3 @@ Start game
   python3 game.py
 ```
 
-## How to Play
-
-- Drag and drop towers onto the map to place them.
-- Drag and drop new towers onto existing towers to upgrade them.
-- Use your towers to defeat all the enemies in each wave.
--  Survive all 15 waves to win the game!
-
-##  Development
-
-Canyon Defenders was developed using PyGame and map is created with [tiled](https://www.mapeditor.org/). You can access assets for free from this [youtube video](https://www.youtube.com/watch?v=C4_iRLlPNFc) and this [website](https://craftpix.net/).
